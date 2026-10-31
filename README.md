@@ -16,6 +16,8 @@
 
 **Важно:** 427 событий/с и 46,93 события/с — **разные эксперименты с разными конфигурациями**, сравнивать их напрямую нельзя. Показатели не равны HTTP RPS и не доказывают скорость доставки через Gmail. Подробнее — ниже.
 
+**[Полные таблицы p95/p99, throughput, методика, ошибки и три перекрывающихся интервала Kafka](docs/benchmarks/results.md)** — отдельный документ с численными данными, перенесёнными из технического журнала.
+
 ### Как проверить реализацию
 
 - **Kafka producer:** [PostCreatedEventPublisher](https://github.com/VladHvedchenya/post_service/blob/dev/src/main/java/faang/school/postservice/publisher/PostCreatedEventPublisher.java), [KafkaPostCreatedEventTransport](https://github.com/VladHvedchenya/post_service/blob/dev/src/main/java/faang/school/postservice/publisher/KafkaPostCreatedEventTransport.java) и [AFTER_COMMIT listener](https://github.com/VladHvedchenya/post_service/blob/dev/src/main/java/faang/school/postservice/listener/PostCreatedNotificationListener.java).
@@ -24,7 +26,7 @@
 - **Инфраструктура:** [Docker Compose с Kafka/Prometheus/Grafana](https://github.com/VladHvedchenya/infra/blob/master/docker-compose.yaml), [Prometheus scrape config](https://github.com/VladHvedchenya/infra/blob/master/monitoring/prometheus/prometheus.yml), [Grafana dashboard JSON](https://github.com/VladHvedchenya/infra/blob/master/monitoring/grafana/dashboards/notification-service.json).
 - **Тесты:** [Kafka producer test](https://github.com/VladHvedchenya/post_service/blob/dev/src/test/java/faang/school/postservice/publisher/KafkaPostCreatedEventTransportTest.java), [Kafka consumer test](https://github.com/VladHvedchenya/notification_service/blob/dev/src/test/java/faang/school/notificationservice/listener/KafkaPostCreatedListenerTest.java), [метрики тест](https://github.com/VladHvedchenya/notification_service/blob/dev/src/test/java/faang/school/notificationservice/metrics/EmailNotificationMetricsTest.java).
 
-Бенчмарки документированы ниже с указанием методики. **Сырые логи и скриншоты этих прогонов пока не выложены в репозиторий**: таблицы — сохранённые результаты локальных экспериментов. Поэтому читатель может проверить код и конфигурации, но не независимо воспроизвести именно исторические цифры только по этому README. Для полной воспроизводимости необходимо добавить генератор нагрузки, исходные результаты и скриншоты Grafana в `docs/benchmarks/`.
+Бенчмарки документированы ниже с указанием методики. **Сырые логи и оригинальные скриншоты Grafana этих прогонов пока не выложены в репозиторий**: подробные таблицы результатов и временные интервалы сохранены в [docs/benchmarks/results.md](docs/benchmarks/results.md) и переписаны из журнала. Поэтому читатель может проверить код и конфигурации, но не независимо воспроизвести именно исторические цифры только по этому README. Для полной воспроизводимости необходимо добавить генератор нагрузки, исходные результаты и скриншоты Grafana в `docs/benchmarks/`.
 
 ## Архитектура событий уведомлений
 
